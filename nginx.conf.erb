@@ -89,9 +89,18 @@ server {
         server_name <%= service.host %>;
         client_max_body_size <%= service.client_max_body_size %>;
         location / {
-          try_files http://<%= service.name %> /index.html;
           proxy_pass http://<%= service.name %>;
         }
+
+        location /.+\..+ { # files (assuming they always have a dot)
+                # use eg alias to serve some files here
+        proxy_pass http://<%= service.name %>;
+            }
+
+            location / { # url routed by client, client gives 404 for bad urls
+                try_files $uri /index.html;
+        proxy_pass http://<%= service.name %>;
+            }
       }
     <% end %>
   <% end %>
