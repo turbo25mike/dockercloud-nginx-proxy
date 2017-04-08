@@ -90,7 +90,7 @@ server {
         client_max_body_size <%= service.client_max_body_size %>;
         location / {
           proxy_pass http://<%= service.name %>;
-          try_files $uri $uri/ index.html =404;
+          rewrite ^(.+)$ /index.html last;
         }
       }
     <% end %>
