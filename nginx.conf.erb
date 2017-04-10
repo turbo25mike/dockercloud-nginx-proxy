@@ -89,7 +89,6 @@ server {
         server_name <%= service.host %>;
         client_max_body_size <%= service.client_max_body_size %>;
         location / {
-          try_files $uri$args $uri$args/ index.html;
           proxy_pass http://<%= service.name %>;
         }
       }
