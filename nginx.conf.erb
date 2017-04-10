@@ -89,8 +89,8 @@ server {
         server_name <%= service.host %>;
         client_max_body_size <%= service.client_max_body_size %>;
         try_files $uri /index.html;
-        rewrite ^/?(.*) /$1 break;
         location / {
+          rewrite ^/?(.*) /$1 break;
           proxy_pass http://<%= service.name %>;
         }
       }
