@@ -89,7 +89,8 @@ server {
         server_name <%= service.host %>;
         client_max_body_size <%= service.client_max_body_size %>;
         location / {
-          proxy_pass http://<%= service.name %>;
+          rewrite (.*) /  break;
+          proxy_pass http://<%= service.name %>/;
         }
       }
     <% end %>
